@@ -141,7 +141,7 @@ export async function searchVaultItems(
  */
 export async function createTransmittal(
   header: TransmittalHeader,
-  items: TransmittalItem[] // eslint-disable-line @typescript-eslint/no-unused-vars
+  _items: TransmittalItem[]
 ): Promise<TransmittalResult> {
   // Mock implementation
   return new Promise((resolve) => {
