@@ -1,0 +1,7 @@
+{
+  "/manual-login/page": "app/manual-login/page.js",
+  "/external-documents/page": "app/external-documents/page.js",
+  "/api/mfiles/complete-oauth/route": "app/api/mfiles/complete-oauth/route.js",
+  "/api/mfiles/me/route": "app/api/mfiles/me/route.js",
+  "/page": "app/page.js"
+}
