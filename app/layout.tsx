@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from '@/src/theme';
 
 export const metadata = {
   title: 'M-Files Uploader',
@@ -13,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           {children}
         </ChakraProvider>
       </body>
