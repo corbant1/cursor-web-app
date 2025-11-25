@@ -24,6 +24,28 @@ export const theme = {
       defaultProps: {
         colorScheme: 'brand',
       },
+      baseStyle: {
+        fontWeight: 'medium',
+        borderRadius: 'md',
+      },
+    },
+    Input: {
+      defaultProps: {
+        focusBorderColor: 'brand.500',
+      },
+    },
+    Textarea: {
+      defaultProps: {
+        focusBorderColor: 'brand.500',
+      },
+    },
+  },
+  styles: {
+    global: {
+      body: {
+        bg: 'gray.50',
+        color: 'gray.800',
+      },
     },
   },
 };

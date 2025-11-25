@@ -1,5 +1,11 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/mfiles/login/route": "app/api/mfiles/login/route.js",
+  "/api/mfiles/complete-oauth/route": "app/api/mfiles/complete-oauth/route.js",
+  "/api/mfiles/me/route": "app/api/mfiles/me/route.js",
+  "/external-documents/page": "app/external-documents/page.js",
   "/manual-login/page": "app/manual-login/page.js",
   "/page": "app/page.js",
-  "/external-documents/page": "app/external-documents/page.js"
+  "/transmittals/page": "app/transmittals/page.js",
+  "/api/mfiles/root-items/route": "app/api/mfiles/root-items/route.js"
 }
