@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Box,
@@ -14,19 +14,19 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Spinner,
   Code,
   Divider,
+  Spinner,
 } from '@chakra-ui/react';
 
-export default function ManualLoginPage() {
+function ManualLoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [redirectUrl, setRedirectUrl] = useState('');
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isTestingAuth, setIsTestingAuth] = useState(false);
-  const [userInfo, setUserInfo] = useState<any>(null);
+  const [userInfo, setUserInfo] = useState<unknown>(null);
 
   const handleOpenLogin = () => {
     // Simply open the endpoint - the browser will follow the redirect
@@ -56,10 +56,11 @@ export default function ManualLoginPage() {
         // Also set userInfo to show the error details
         setUserInfo(data);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
       setStatus({
         type: 'error',
-        message: `Error: ${error.message}`,
+        message: `Error: ${errorMessage}`,
       });
     } finally {
       setIsTestingAuth(false);
@@ -101,10 +102,11 @@ export default function ManualLoginPage() {
           message: data.error || data.details || `Login failed: ${response.status}`,
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
       setStatus({
         type: 'error',
-        message: error.message || 'An error occurred',
+        message: errorMessage,
       });
     } finally {
       setIsLoading(false);
@@ -193,10 +195,10 @@ export default function ManualLoginPage() {
           >
             Test /api/mfiles/me
           </Button>
-          {userInfo && (
+          {userInfo !== null && (
             <Box mt={4} p={4} bg="gray.50" borderRadius="md">
               <Text fontSize="sm" fontWeight="medium" mb={2}>
-                {userInfo.error ? 'Error Details:' : 'User Info:'}
+                {(userInfo as { error?: string })?.error ? 'Error Details:' : 'User Info:'}
               </Text>
               <Code display="block" whiteSpace="pre-wrap" p={2} fontSize="xs" overflowX="auto">
                 {JSON.stringify(userInfo, null, 2)}
@@ -219,5 +221,22 @@ export default function ManualLoginPage() {
         </Box>
       </VStack>
     </Container>
+  );
+}
+
+export default function ManualLoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <Container maxW="2xl" py={10}>
+          <VStack spacing={6}>
+            <Spinner size="xl" />
+            <Text>Loading...</Text>
+          </VStack>
+        </Container>
+      }
+    >
+      <ManualLoginContent />
+    </Suspense>
   );
 }

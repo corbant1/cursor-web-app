@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-export async function GET(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+export async function GET(_request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get('mfiles_access_token');
@@ -82,10 +84,11 @@ export async function GET(request: NextRequest) {
     }
 
     return result;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to get root items';
     console.error('Get root items error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to get root items' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

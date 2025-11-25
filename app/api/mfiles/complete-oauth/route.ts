@@ -182,10 +182,11 @@ export async function POST(request: NextRequest) {
     }
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to complete OAuth flow';
     console.error('Complete OAuth error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to complete OAuth flow' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

@@ -78,7 +78,7 @@ export default function ExternalDocumentsScreen() {
                 <VStack align="start" spacing={1}>
                   <FormLabel mb={0}>Title from filename (default)</FormLabel>
                   <Text fontSize="xs" color="gray.500" fontFamily="mono">
-                    "LDE-NC-DRW-001-Rev-A.pdf" → "LDE-NC-DRW-001-Rev-A"
+                    &quot;LDE-NC-DRW-001-Rev-A.pdf&quot; → &quot;LDE-NC-DRW-001-Rev-A&quot;
                   </Text>
                 </VStack>
               </Radio>
@@ -94,7 +94,7 @@ export default function ExternalDocumentsScreen() {
                     maxW="400px"
                   />
                   <Text fontSize="xs" color="gray.500">
-                    Example: "[ProjectCode] - [FilenameWithoutExtension]"
+                    Example: &quot;[ProjectCode] - [FilenameWithoutExtension]&quot;
                   </Text>
                 </VStack>
               </Radio>

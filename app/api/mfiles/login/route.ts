@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { getOAuthPluginConfig, getAppropriateRedirectUri, generateAuthorizationUri } from '@/lib/mfilesAuth';
 import { randomUUID } from 'crypto';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const baseUrl = process.env.MFILES_BASE_URL;
     const vaultGuid = process.env.MFILES_VAULT_GUID;
@@ -77,10 +77,11 @@ export async function GET(request: NextRequest) {
     }
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to initiate login';
     console.error('Login error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to initiate login' },
+      { error: errorMessage },
       { status: 500 }
     );
   }

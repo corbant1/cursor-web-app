@@ -26,8 +26,13 @@ export interface OAuthPlugin {
 /**
  * Check if a plugin is the OAuth plugin
  */
-export function isOAuthPlugin(plugin: any): plugin is OAuthPlugin {
-  return plugin?.AssemblyName === 'MFiles.AuthenticationProviders.OAuth';
+export function isOAuthPlugin(plugin: unknown): plugin is OAuthPlugin {
+  return (
+    typeof plugin === 'object' &&
+    plugin !== null &&
+    'AssemblyName' in plugin &&
+    (plugin as { AssemblyName?: string }).AssemblyName === 'MFiles.AuthenticationProviders.OAuth'
+  );
 }
 
 /**
@@ -183,7 +188,7 @@ export async function getOAuthPluginConfig(
   const setCookieHeader = response.headers.get('set-cookie');
   const mfilesmsmCookie = extractMfilesmsmCookie(setCookieHeader);
   
-  const plugins: any[] = await response.json();
+  const plugins: unknown[] = await response.json();
   
   const oauthPlugin = plugins.find(isOAuthPlugin);
   

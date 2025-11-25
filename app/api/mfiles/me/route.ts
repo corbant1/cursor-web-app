@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get('mfiles_access_token');
@@ -121,10 +121,11 @@ export async function GET(request: NextRequest) {
     }
 
     return result;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to get user info';
     console.error('Get user error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to get user info' },
+      { error: errorMessage },
       { status: 500 }
     );
   }
